@@ -1,0 +1,28 @@
+{
+  "embed": "mock-hashing(本地哈希)",
+  "metrics": {
+    "dense": {
+      "hit@5": 92.7,
+      "mrr": 0.807
+    },
+    "bm25": {
+      "hit@5": 100.0,
+      "mrr": 0.941
+    },
+    "hybrid": {
+      "hit@5": 100.0,
+      "mrr": 0.921
+    }
+  },
+  "best": "bm25",
+  "meta": {
+    "strategy": "fixed",
+    "size": 220,
+    "overlap": 60,
+    "docs": 12,
+    "dim": 256,
+    "embed_mode": "mock",
+    "embed_model": "mock-hashing",
+    "chunks": 39
+  }
+}
