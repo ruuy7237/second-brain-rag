@@ -11,6 +11,26 @@ import os
 import re
 import urllib.request
 
+
+def _load_env():
+    """可选：从项目根目录的 .env 读取 API Key，免得配系统环境变量。"""
+    try:
+        root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        for cand in (os.path.join(root, ".env"), os.path.join(os.getcwd(), ".env")):
+            if os.path.exists(cand):
+                for line in open(cand, encoding="utf-8"):
+                    line = line.strip()
+                    if not line or line.startswith("#") or "=" not in line:
+                        continue
+                    k, v = line.split("=", 1)
+                    os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
+                break
+    except Exception:
+        pass
+
+
+_load_env()
+
 EMBED_BASE_URL = os.getenv("EMBED_BASE_URL", os.getenv("LLM_BASE_URL", "https://api.openai.com/v1"))
 EMBED_API_KEY = os.getenv("EMBED_API_KEY", os.getenv("LLM_API_KEY", ""))
 EMBED_MODEL = os.getenv("EMBED_MODEL", "text-embedding-3-small")

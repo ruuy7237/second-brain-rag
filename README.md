@@ -31,12 +31,11 @@ python -m src.ingest --docs ~/my_notes --out data/my_index.json
 python -m src.ask "..." --index data/my_index.json
 ```
 
-接真实嵌入模型与生成模型（不配也能跑，会自动用本地哈希嵌入 + 片段摘录兜底）：
+生成答案已接入 DeepSeek（项目根目录 `.env` 里放好 `LLM_API_KEY` 即生效）；稠密检索仍用本地哈希嵌入兜底——因为 **DeepSeek 不提供 embedding 接口**，要真语义向量需另配 OpenAI 兼容的 `EMBED_API_KEY`。BM25 关键词检索不受影响，中文很准。
 
 ```bash
-export EMBED_API_KEY=sk-xxxxx        # OpenAI 兼容的 embeddings 接口
-export EMBED_MODEL=text-embedding-3-small
-export LLM_API_KEY=sk-xxxxx          # 用于最终答案生成
+export LLM_API_KEY=sk-xxxxx          # 用于最终答案生成（已写入 .env）
+export EMBED_API_KEY=sk-xxxxx        # 可选：OpenAI 兼容的 embeddings 接口，换真语义向量
 ```
 
 ## 架构
